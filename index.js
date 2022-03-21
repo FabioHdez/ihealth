@@ -16,6 +16,9 @@ app.use(express.static('./public'))
 var home = require('./routes/home')
 app.use('/',home);
 
+var admin = require('./routes/admin')
+app.use('/admin',admin);
+
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server started")
 })
