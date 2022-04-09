@@ -9,4 +9,12 @@ router.get('/', (req, res) => {
   res.render('admin/index')
 })
 
+router.get('/employees', (req, res) => {
+  res.render('admin/employees')
+})
+
+router.get('/clients', (req, res) => {
+  res.render('admin/clients')
+})
+
 module.exports = router
