@@ -16,5 +16,8 @@ router.get('/employees', (req, res) => {
 router.get('/clients', (req, res) => {
   res.render('admin/clients')
 })
+router.get('/appointments', (req, res) => {
+  res.render('admin/appointments',{layout:"calendar.hbs"})
+})
 
 module.exports = router
