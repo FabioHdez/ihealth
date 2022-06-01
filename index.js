@@ -2,7 +2,9 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const exphbs = require('express-handlebars')
+const mongoose = require('mongoose');
 
+require('./database');
 
 // Template engine
 app.engine('hbs', exphbs.engine({
@@ -12,10 +14,9 @@ app.engine('hbs', exphbs.engine({
 app.set('view engine', 'hbs');
 app.use(express.static('public'))
 
-
+// routes
 var home = require('./routes/home')
 app.use('/',home);
-
 var admin = require('./routes/admin')
 app.use('/admin',admin);
 
