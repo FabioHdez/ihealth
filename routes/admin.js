@@ -12,6 +12,13 @@ router.get('/', (req, res) => {
 router.get('/employees', (req, res) => {
   res.render('admin/employees')
 })
+router.post('/employees', (req, res) => {
+  console.log(req.body)
+  res.redirect('/admin/employees')
+})
+router.get('/employees/create', (req, res) => {
+  res.render('admin/employees_create')
+})
 
 router.get('/clients', (req, res) => {
   res.render('admin/clients')

@@ -3,7 +3,12 @@ const app = express()
 require('dotenv').config()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose');
-
+// Body parser
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
 require('./database');
 
 // Template engine

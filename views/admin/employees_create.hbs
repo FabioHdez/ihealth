@@ -1,0 +1,38 @@
+{{> admin/_navbar}}
+{{> admin/_settings-panel}}
+{{> admin/_sidebar}}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Create Employee Account</h4>
+          <p class="card-description">
+            Fill this form with your employee information to create their account.
+          </p>
+          <form class="forms-sample" action="/admin/employees" method="post">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" name="username"id="username" placeholder="Username" data-form-type="username">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-form-type="email">
+            </div>
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" data-form-type="password">
+            </div>
+            <div class="form-group">
+              <label for="confirmPass">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPass" name="confirmPass" placeholder="Password" data-form-type="password,confirmation">
+            </div>
+            <button type="submit" class="btn btn-primary me-2" data-form-type="action" data-dashlane-label="true">Submit</button>
+            <button class="btn btn-light" data-form-type="other" data-dashlane-label="true">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> admin/_footer}}
+</div>
