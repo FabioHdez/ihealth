@@ -23,6 +23,14 @@ router.get('/employees/create', (req, res) => {
 router.get('/clients', (req, res) => {
   res.render('admin/clients')
 })
+router.post('/clients', (req, res) => {
+  console.log(req.body)
+  res.redirect('/admin/clients')
+})
+router.get('/clients/create', (req, res) => {
+  res.render('admin/clients_create')
+})
+
 router.get('/appointments', (req, res) => {
   res.render('admin/appointments',{layout:"calendar.hbs"})
 })
