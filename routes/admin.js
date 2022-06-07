@@ -9,17 +9,21 @@ router.get('/', (req, res) => {
   res.render('admin/index')
 })
 
+// Employee
+const Employee = require('../models/Employee')
 router.get('/employees', (req, res) => {
   res.render('admin/employees')
 })
-router.post('/employees', (req, res) => {
-  console.log(req.body)
+router.post('/employees', async(req, res) => {
+  const newEmployee = new Employee(req.body)
+  await newEmployee.save()
   res.redirect('/admin/employees')
 })
 router.get('/employees/create', (req, res) => {
   res.render('admin/employees_create')
 })
 
+// Client
 router.get('/clients', (req, res) => {
   res.render('admin/clients')
 })
@@ -31,6 +35,7 @@ router.get('/clients/create', (req, res) => {
   res.render('admin/clients_create')
 })
 
+// Others
 router.get('/appointments', (req, res) => {
   res.render('admin/appointments',{layout:"calendar.hbs"})
 })

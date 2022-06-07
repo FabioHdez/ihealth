@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 
 const EmployeeSchema = new Schema({
   name: {type: String, required: true},
+  username: {type: String, required: true},
   phone: {type: String, required: false},
   email: {type:String,required:false},
   password: { type: String, required: false },
