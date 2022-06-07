@@ -16,7 +16,10 @@ router.get('/employees', (req, res) => {
 })
 router.post('/employees', async(req, res) => {
   const newEmployee = new Employee(req.body)
-  await newEmployee.save()
+  if(req.body.password == req.body.confirmPass){
+    newEmployee.password = await newEmployee.encryptPassword(newEmployee.password);
+    await newEmployee.save()
+  }
   res.redirect('/admin/employees')
 })
 router.get('/employees/create', (req, res) => {
