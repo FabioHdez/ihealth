@@ -27,11 +27,13 @@ router.get('/employees/create', (req, res) => {
 })
 
 // Client
+const Client = require('../models/Client')
 router.get('/clients', (req, res) => {
   res.render('admin/clients')
 })
-router.post('/clients', (req, res) => {
-  console.log(req.body)
+router.post('/clients', async(req, res) => {
+  const newClient = new Client(req.body)
+  await newClient.save()
   res.redirect('/admin/clients')
 })
 router.get('/clients/create', (req, res) => {
