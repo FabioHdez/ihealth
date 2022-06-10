@@ -5,6 +5,7 @@ const ClientSchema = new Schema({
   name: {type: String, required: true},
   email: {type:String,required:false},
   phone: {type:Number,required:false},
+  employee: {type: Schema.Types.ObjectId, ref: 'Employee', required:false},
   deleted: {type: Boolean,default: false,required: true}
 })
 

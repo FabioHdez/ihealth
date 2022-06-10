@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
 const Employee = require('../models/Employee')
 router.get('/employees', async(req, res) => {
   const employees = await Employee.find({deleted: false}).lean()
-  console.log(employees)
   res.render('admin/employees',{employees})
 })
 router.post('/employees', async(req, res) => {
@@ -30,8 +29,10 @@ router.get('/employees/create', (req, res) => {
 
 // Client
 const Client = require('../models/Client')
-router.get('/clients', (req, res) => {
-  res.render('admin/clients')
+router.get('/clients', async(req, res) => {
+  // LATER ADD SOME AUTHENTICATION FOR EACH EMPLOYEE TO ADMINISTER THEIR OWN CLIENT!!!!!!!!!!!!!!!!!!!!
+  const clients = await Client.find({deleted: false}).lean()
+  res.render('admin/clients',{clients})
 })
 router.post('/clients', async(req, res) => {
   const newClient = new Client(req.body)

@@ -8,22 +8,23 @@
       <button type="button" class="btn btn-success" onclick ="location.href = 'clients/create'" >Add Client</button>
       <thead>
         <tr class="">
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
           <th>Employee Assigned</th>
           <th>Edit</th>
         </tr>
       </thead>
       <tbody>
+        {{#each clients}}
         <tr>
-          <td scope="row">1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>Mark Otto <a href="#">@mdo</a></td>
+          <td>{{name}}</td>
+          <td>{{email}}</td>
+          <td>{{phone}}</td>
+          <td>Mark Otto <a href="#">PLACEHOLDER FOR ACTUAL EMPLOYEE</a></td>
           <td><button type="button" class="btn btn-success">Edit</button></td>
         </tr>
-
+        {{/each}}
       </tbody>
     </table>
   </div>
