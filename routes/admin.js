@@ -11,8 +11,10 @@ router.get('/', (req, res) => {
 
 // Employee
 const Employee = require('../models/Employee')
-router.get('/employees', (req, res) => {
-  res.render('admin/employees')
+router.get('/employees', async(req, res) => {
+  const employees = await Employee.find({deleted: false}).lean()
+  console.log(employees)
+  res.render('admin/employees',{employees})
 })
 router.post('/employees', async(req, res) => {
   const newEmployee = new Employee(req.body)

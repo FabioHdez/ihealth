@@ -16,6 +16,12 @@ app.engine('hbs', exphbs.engine({
   defaultLayout: 'main',
   extname: '.hbs'
 }))
+var hbs = exphbs.create({});
+hbs.handlebars.registerHelper('splitName', function(fullName) {
+  splitName = fullName.split(' ');
+  return splitName;
+})
+
 app.set('view engine', 'hbs');
 app.use(express.static('public'))
 
