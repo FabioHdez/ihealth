@@ -1,16 +1,30 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
+// LOGGING IN and OUT
 router.get('/login', (req, res) => {
   res.render('admin/login')
 })
 
-router.get('/', (req, res) => {
+router.post('/login', passport.authenticate('local', {
+  successReturnToOrRedirect: '/admin',
+  failureRedirect: '/admin/login',
+}));
+
+router.get('/logout', (req, res) => {
+	req.session.destroy();
+  res.redirect('/admin/login');
+});
+const Employee = require('../models/Employee')
+
+router.get('/', async(req, res) => {
+  // const employee = await Employee.findById(req.session.passport.user).lean()
+  // console.log(employee)
   res.render('admin/index')
 })
 
 // Employee
-const Employee = require('../models/Employee')
 router.get('/employees', async(req, res) => {
   const employees = await Employee.find({deleted: false}).lean()
   res.render('admin/employees',{employees})
