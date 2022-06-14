@@ -3,6 +3,7 @@ const app = express()
 require('dotenv').config()
 const exphbs = require('express-handlebars')
 const mongoose = require('mongoose');
+const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
@@ -25,6 +26,8 @@ app.use(session({
 	saveUninitialized: true,
   store: MongoStore.create({ mongoUrl: process.env.DB_CONNECTION })
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 // Template engine
 app.engine('hbs', exphbs.engine({
   defaultLayout: 'main',
