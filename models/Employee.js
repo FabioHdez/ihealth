@@ -9,6 +9,7 @@ const EmployeeSchema = new Schema({
   phone: {type: Number, required: false},
   email: {type:String,required:false},
   password: { type: String, required: false },
+  admin: {type: Boolean,default: false,required: true},
   deleted: {type: Boolean,default: false,required: true}
 })
 EmployeeSchema.methods.encryptPassword = async (password) => {

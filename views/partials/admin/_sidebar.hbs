@@ -8,6 +8,7 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+    {{#if admin}}
     <li class="nav-item nav-category">Staff</li>
     <li class="nav-item">
       <a class="nav-link" href="/admin/employees">
@@ -15,6 +16,7 @@
         <span class="menu-title">Employees</span>
       </a>
     </li>
+    {{/if}}
     <li class="nav-item nav-category">Clients</li>
     <li class="nav-item">
       <a class="nav-link" href="/admin/appointments">
@@ -47,6 +49,12 @@
       <a class="nav-link" href="/admin/settings">
         <i class="menu-icon mdi mdi-settings"></i>
         <span class="menu-title">Settings</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/logout">
+        <i class="menu-icon mdi mdi-close-circle"></i>
+        <span class="menu-title">Logout</span>
       </a>
     </li>
   </ul>

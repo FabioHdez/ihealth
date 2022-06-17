@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-const {isAuthenticated} = require('../helpers/auth');
+const {isAuthenticated,isAdmin} = require('../helpers/auth');
 
 // LOGGING IN and OUT
 router.get('/login', (req, res) => {
@@ -27,13 +27,12 @@ router.get('/', isAuthenticated, async(req, res) => {
 })
 
 // Employee
-// ADD HIGHER PRIVILEGES TO THIS PAGE FOR LATER
 const Employee = require('../models/Employee')
-router.get('/employees',isAuthenticated, async(req, res) => {
+router.get('/employees',isAdmin, async(req, res) => {
   const employees = await Employee.find({deleted: false}).lean()
   res.render('admin/employees',{employees,name: req.user.name})
 })
-router.post('/employees',isAuthenticated, async(req, res) => {
+router.post('/employees',isAdmin, async(req, res) => {
   const newEmployee = new Employee(req.body)
   if(req.body.password == req.body.confirmPass){
     newEmployee.password = await newEmployee.encryptPassword(newEmployee.password);
@@ -41,7 +40,7 @@ router.post('/employees',isAuthenticated, async(req, res) => {
   }
   res.redirect('/admin/employees')
 })
-router.get('/employees/create',isAuthenticated, (req, res) => {
+router.get('/employees/create',isAdmin, (req, res) => {
   res.render('admin/employees_create',req.user)
 })
 
