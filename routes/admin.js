@@ -4,6 +4,9 @@ const passport = require('passport')
 
 const {isAuthenticated,isAdmin} = require('../helpers/auth');
 
+const Client = require('../models/Client')
+const Employee = require('../models/Employee')
+
 // LOGGING IN and OUT
 router.get('/login', (req, res) => {
   if (req.isAuthenticated()){
@@ -23,14 +26,13 @@ router.get('/logout', isAuthenticated, (req, res) => {
 });
 
 router.get('/', isAuthenticated, async(req, res) => {
-  res.render('admin/index',req.user)
+  res.render('admin/index',{name: req.user.name,admin: req.user.admin})
 })
 
 // Employee
-const Employee = require('../models/Employee')
 router.get('/employees',isAdmin, async(req, res) => {
   const employees = await Employee.find({deleted: false}).lean()
-  res.render('admin/employees',{employees,name: req.user.name})
+  res.render('admin/employees',{employees,name: req.user.name,admin: req.user.admin})
 })
 router.post('/employees',isAdmin, async(req, res) => {
   const newEmployee = new Employee(req.body)
@@ -41,31 +43,37 @@ router.post('/employees',isAdmin, async(req, res) => {
   res.redirect('/admin/employees')
 })
 router.get('/employees/create',isAdmin, (req, res) => {
-  res.render('admin/employees_create',req.user)
+  res.render('admin/employees_create',{name: req.user.name,admin: req.user.admin})
 })
 
 // Client
-const Client = require('../models/Client')
 router.get('/clients',isAuthenticated, async(req, res) => {
   // LATER ADD SOME AUTHENTICATION FOR EACH EMPLOYEE TO ADMINISTER THEIR OWN CLIENT!!!!!!!!!!!!!!!!!!!!
-  const clients = await Client.find({deleted: false}).lean()
-  res.render('admin/clients',{clients,name: req.user.name})
+  let clients
+  if (req.user.admin){
+    clients = await Client.find({deleted: false}).lean()
+  }else{
+    clients = await Client.find({deleted: false,employee: req.user.id}).lean()
+  }
+  res.render('admin/clients',{clients,name: req.user.name,admin: req.user.admin})
 })
 router.post('/clients',isAuthenticated, async(req, res) => {
   const newClient = new Client(req.body)
+  newClient.employee = req.user.id
+  newClient.employeeName = req.user.name
   await newClient.save()
   res.redirect('/admin/clients')
 })
 router.get('/clients/create',isAuthenticated, (req, res) => {
-  res.render('admin/clients_create',req.user)
+  res.render('admin/clients_create',{name: req.user.name,admin: req.user.admin})
 })
 
 // Others
 router.get('/appointments',isAuthenticated, (req, res) => {
-  res.render('admin/appointments',{layout:"calendar.hbs",name: req.user.name})
+  res.render('admin/appointments',{layout:"calendar.hbs",name: req.user.name,admin: req.user.admin})
 })
 router.get('/documents',isAuthenticated, (req, res) => {
-  res.render('admin/documents',req.user)
+  res.render('admin/documents',{name: req.user.name,admin: req.user.admin})
 })
 
 module.exports = router

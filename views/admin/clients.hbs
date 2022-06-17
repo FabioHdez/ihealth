@@ -11,7 +11,7 @@
           <th>Full Name</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>Employee Assigned</th>
+          {{#if admin}}<th>Employee Assigned</th>{{/if}}
           <th>Edit</th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
           <td>{{name}}</td>
           <td>{{email}}</td>
           <td>{{phone}}</td>
-          <td>Mark Otto <a href="#">PLACEHOLDER FOR ACTUAL EMPLOYEE</a></td>
+          {{#if ../admin}}<td><a href="#">{{employeeName}}</a></td>{{/if}}
           <td><button type="button" class="btn btn-success">Edit</button></td>
         </tr>
         {{/each}}
