@@ -70,7 +70,7 @@ router.get('/clients/create',isAuthenticated, (req, res) => {
 
 // Others
 router.get('/appointments',isAuthenticated, (req, res) => {
-  res.render('admin/appointments',{layout:"calendar.hbs",name: req.user.name,admin: req.user.admin})
+  res.render('admin/appointments',{name: req.user.name,admin: req.user.admin})
 })
 router.get('/documents',isAuthenticated, (req, res) => {
   res.render('admin/documents',{name: req.user.name,admin: req.user.admin})

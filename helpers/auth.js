@@ -10,7 +10,6 @@ res.redirect('/admin/login')
 // Checks if the user has admin privileges and if it is Authenticated
 helpers.isAdmin = async (req, res, next) => {
   if (req.user.admin && req.isAuthenticated()) {
-    console.log(req.user.admin)
     return next();
   }
 res.redirect('/admin/')
