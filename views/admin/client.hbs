@@ -1,0 +1,36 @@
+{{> admin/_navbar}}
+{{> admin/_settings-panel}}
+{{> admin/_sidebar}}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Edit Client Information</h4>
+          <form class="forms-sample" action="/admin/clients/{{client._id}}" method="post">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" class="form-control" name="name"id="name" placeholder="Full Name" data-form-type="name" value="{{client.name}}">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="number" class="form-control" name="phone" id="phone" placeholder="Phone Number" data-form-type="phone" value="{{client.phone}}">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-form-type="email" value="{{client.email}}">
+            </div>
+            <!-- ADD LATER -->
+            <div class="form-group">
+              <label for="potentialEmployee">Employee</label>
+              <input disabled type="email" class="form-control" name="potentialEmployee" id="potentialEmployee" placeholder="Employee" data-form-type="email">
+            </div>
+            <button type="submit" class="btn btn-primary me-2" data-form-type="action" data-dashlane-label="true">Submit</button>
+            <button class="btn btn-light" data-form-type="other" data-dashlane-label="true">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> admin/_footer}}
+</div>

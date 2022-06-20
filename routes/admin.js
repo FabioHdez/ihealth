@@ -45,10 +45,29 @@ router.post('/employees',isAdmin, async(req, res) => {
 router.get('/employees/create',isAdmin, (req, res) => {
   res.render('admin/employees_create',{name: req.user.name,admin: req.user.admin})
 })
+// Single EMPLOYEE
+router.get('/employees/:id',isAdmin, async(req, res) => {
+  let employee;
+  try{
+    employee = await Employee.findById(req.params.id).lean()
+  }catch(err){
+    res.redirect('/admin/employees')
+  }
+  res.render('admin/employee',{employee,name: req.user.name,admin: req.user.admin})
+})
+
+router.post('/employees/:id',isAdmin, async(req, res) => {
+  try{
+    await Employee.findByIdAndUpdate(req.params.id,req.body)
+  }catch(err){
+    console.log(err)
+    res.redirect('/admin/employees')
+  }
+  res.redirect('/admin/employees')
+})
 
 // Client
 router.get('/clients',isAuthenticated, async(req, res) => {
-  // LATER ADD SOME AUTHENTICATION FOR EACH EMPLOYEE TO ADMINISTER THEIR OWN CLIENT!!!!!!!!!!!!!!!!!!!!
   let clients
   if (req.user.admin){
     clients = await Client.find({deleted: false}).lean()
@@ -66,6 +85,26 @@ router.post('/clients',isAuthenticated, async(req, res) => {
 })
 router.get('/clients/create',isAuthenticated, (req, res) => {
   res.render('admin/clients_create',{name: req.user.name,admin: req.user.admin})
+})
+// Single Client FIX ADMIN REQUIREMENTS!!!!!!!!!!!!!!!!!!!!
+router.get('/clients/:id',isAuthenticated, async(req, res) => {
+  let client;
+  try{
+    client = await Client.findById(req.params.id).lean()
+  }catch(err){
+    res.redirect('/admin/clients')
+  }
+  res.render('admin/client',{client,name: req.user.name,admin: req.user.admin})
+})
+
+router.post('/clients/:id',isAuthenticated, async(req, res) => {
+  try{
+    await Client.findByIdAndUpdate(req.params.id,req.body)
+  }catch(err){
+    console.log(err)
+    res.redirect('/admin/clients')
+  }
+  res.redirect('/admin/clients')
 })
 
 // Others

@@ -21,8 +21,8 @@
           <td>{{name}}</td>
           <td>{{email}}</td>
           <td>{{phone}}</td>
-          {{#if ../admin}}<td><a href="#">{{employeeName}}</a></td>{{/if}}
-          <td><button type="button" class="btn btn-success">Edit</button></td>
+          {{#if ../admin}}<td><a href="/admin/employees/{{employee}}">{{employeeName}}</a></td>{{/if}}
+          <td><button type="button" class="btn btn-success" onclick ="location.href = 'clients/{{_id}}'">Edit</button></td>
         </tr>
         {{/each}}
       </tbody>
