@@ -58,6 +58,7 @@ router.get('/employees/:id',isAdmin, async(req, res) => {
 
 router.post('/employees/:id',isAdmin, async(req, res) => {
   try{
+    (req.body.admin == 'on') ? req.body.admin = true : req.body.admin = false
     await Employee.findByIdAndUpdate(req.params.id,req.body)
   }catch(err){
     console.log(err)
@@ -107,9 +108,12 @@ router.post('/clients/:id',isAuthenticated, async(req, res) => {
   res.redirect('/admin/clients')
 })
 
-// Others
+// Appointments
 router.get('/appointments',isAuthenticated, (req, res) => {
   res.render('admin/appointments',{name: req.user.name,admin: req.user.admin})
+})
+router.get('/appointments/create',isAuthenticated, (req, res) => {
+  res.render('admin/appointments_create',{name: req.user.name,admin: req.user.admin})
 })
 router.get('/documents',isAuthenticated, (req, res) => {
   res.render('admin/documents',{name: req.user.name,admin: req.user.admin})
