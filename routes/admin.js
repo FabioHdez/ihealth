@@ -115,15 +115,34 @@ router.get('/appointments',isAuthenticated, (req, res) => {
 })
 router.post('/appointments',isAuthenticated, async(req, res) => {
   const newAppointment = new Appointment(req.body)
-  employee = await Employee.findById(req.user.id)
+  let employee
+  if (req.body.employeeid != 'None') {
+    employee = await Employee.findById(req.body.employeeid)
+  }else{
+    employee = await Employee.findById(req.user.id)
+  }
   newAppointment.employee = employee
   newAppointment.employeeName = employee.name
+  if (req.body.clientid != 'None') {
+    client = await Client.findById(req.body.clientid)
+    newAppointment.client = client
+    newAppointment.clientName = client.name
+  }
   await newAppointment.save()
   res.redirect('/admin/appointments')
 })
-router.get('/appointments/create',isAuthenticated, (req, res) => {
-  res.render('admin/appointments_create',{name: req.user.name,admin: req.user.admin})
+router.get('/appointments/create',isAuthenticated, async(req, res) => {
+  let clients;
+  let employees;
+  if (req.user.admin){
+    clients = await Client.find({deleted: false}).lean()
+    employees = await Employee.find({deleted: false}).lean()
+  }else{
+    clients = await Client.find({deleted: false,employee: req.user.id}).lean()
+  }
+  res.render('admin/appointments_create',{name: req.user.name,admin: req.user.admin,clients:clients,employees:employees})
 })
+
 router.get('/documents',isAuthenticated, (req, res) => {
   res.render('admin/documents',{name: req.user.name,admin: req.user.admin})
 })
