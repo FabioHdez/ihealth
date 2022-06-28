@@ -6,6 +6,7 @@ const {isAuthenticated,isAdmin} = require('../helpers/auth');
 
 const Client = require('../models/Client')
 const Employee = require('../models/Employee')
+const Appointment = require('../models/Appointment')
 
 // LOGGING IN and OUT
 router.get('/login', (req, res) => {
@@ -111,6 +112,14 @@ router.post('/clients/:id',isAuthenticated, async(req, res) => {
 // Appointments
 router.get('/appointments',isAuthenticated, (req, res) => {
   res.render('admin/appointments',{name: req.user.name,admin: req.user.admin})
+})
+router.post('/appointments',isAuthenticated, async(req, res) => {
+  const newAppointment = new Appointment(req.body)
+  employee = await Employee.findById(req.user.id)
+  newAppointment.employee = employee
+  newAppointment.employeeName = employee.name
+  await newAppointment.save()
+  res.redirect('/admin/appointments')
 })
 router.get('/appointments/create',isAuthenticated, (req, res) => {
   res.render('admin/appointments_create',{name: req.user.name,admin: req.user.admin})
