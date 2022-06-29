@@ -7,7 +7,7 @@ const Client = require('./Client')
 const AppointmentSchema = new Schema({
   title: {type: String, required: true},
   description: {type: String,required: false},
-  date: {type: Date,required: true},
+  date: {type: Date, default: Date.now,required: true},
   client: {type: Schema.Types.ObjectId, ref: 'Client', required:false},
   clientName: {type:String, default:"NOT FOUND",required:false},
   employee: {type: Schema.Types.ObjectId, ref: 'Employee', required:true},

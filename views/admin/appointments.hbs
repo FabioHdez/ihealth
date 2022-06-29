@@ -19,31 +19,30 @@
                           <th>Client</th>
                           <th>Title</th>
                           <th>Status</th>
+                          {{#if admin}}
+                          <th>Employee</th>
+                          {{/if}}
                           <th>View</th>
                         </tr>
                       </thead>
                       <tbody>
+                        {{#each appointments}}
                         <tr>
-                          <td>6-17-2022</td>
-                          <td>Chris Sanchez</td>
-                          <td>Ear inspection</td>
-                          <td><label class="badge badge-danger">Rescheduled</label></td>
+                          <!-- FIX DATE -->
+                          <td>{{date}}</td>
+                          <td>{{clientName}}</td>
+                          <td>{{title}}</td>
+                          <td>
+                            {{#if completed}}<label class="badge badge-success">Completed</label>
+                            {{else}}<label class="badge badge-warning">In progress</label>
+                            {{/if}}
+                          </td>
+                          {{#if ../admin}}
+                          <td>{{employeeName}}</td>
+                          {{/if}}
                           <td><button type="button" class="btn btn-success" onclick ="location.href = 'appointments/{{_id}}'">Edit</button></td>
                         </tr>
-                        <tr>
-                          <td>6-18-2022</td>
-                          <td>Juanmi Sanchez</td>
-                          <td>Yearly checkup</td>
-                          <td><label class="badge badge-warning">In progress</label></td>
-                          <td><button type="button" class="btn btn-success" onclick ="location.href = 'appointments/{{_id}}'">Edit</button></td>
-                        </tr>
-                        <tr>
-                          <td>6-18-2022</td>
-                          <td>Lazaro Rodriguez</td>
-                          <td>Psychological tests</td>
-                          <td><label class="badge badge-success">Completed</label></td>
-                          <td><button type="button" class="btn btn-success" onclick ="location.href = 'appointments/{{_id}}'">Edit</button></td>
-                        </tr>
+                        {{/each}}
                       </tbody>
                     </table>
                   </div>

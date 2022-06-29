@@ -110,16 +110,22 @@ router.post('/clients/:id',isAuthenticated, async(req, res) => {
 })
 
 // Appointments
-router.get('/appointments',isAuthenticated, (req, res) => {
-  res.render('admin/appointments',{name: req.user.name,admin: req.user.admin})
+router.get('/appointments',isAuthenticated, async(req, res) => {
+  let appointments
+  if (req.user.admin){
+    appointments = await Appointment.find({deleted: false}).lean()
+  }else{
+    appointments = await Appointment.find({deleted: false,employee: req.user.id}).lean()
+  }
+  res.render('admin/appointments',{appointments,name: req.user.name,admin: req.user.admin})
 })
 router.post('/appointments',isAuthenticated, async(req, res) => {
   const newAppointment = new Appointment(req.body)
   let employee
-  if (req.body.employeeid != 'None') {
-    employee = await Employee.findById(req.body.employeeid)
-  }else{
+  if (req.body.employeeid == undefined || req.body.employeeid == 'None') {
     employee = await Employee.findById(req.user.id)
+  }else{
+    employee = await Employee.findById(req.body.employeeid)
   }
   newAppointment.employee = employee
   newAppointment.employeeName = employee.name
