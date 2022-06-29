@@ -113,9 +113,9 @@ router.post('/clients/:id',isAuthenticated, async(req, res) => {
 router.get('/appointments',isAuthenticated, async(req, res) => {
   let appointments
   if (req.user.admin){
-    appointments = await Appointment.find({deleted: false}).lean()
+    appointments = await Appointment.find({deleted: false}).lean().sort({date: 'desc'});
   }else{
-    appointments = await Appointment.find({deleted: false,employee: req.user.id}).lean()
+    appointments = await Appointment.find({deleted: false,employee: req.user.id}).lean().sort({date: 'desc'});
   }
   res.render('admin/appointments',{appointments,name: req.user.name,admin: req.user.admin})
 })
