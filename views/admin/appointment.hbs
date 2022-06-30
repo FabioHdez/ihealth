@@ -1,0 +1,65 @@
+{{> admin/_navbar}}
+{{> admin/_settings-panel}}
+{{> admin/_sidebar}}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Edit appointment</h4>
+          <p class="card-description">
+            Edit the information of your appointment.
+          </p>
+          <form class="forms-sample" action="/admin/appointments/{{appointment._id}}" method="post">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" name="title"id="title" placeholder="Task Title" data-form-type="title" value="{{appointment.title}}" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" name="description" id="description" rows="4" >{{appointment.description}}</textarea>
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" name="date"id="date" value="{{formatDate appointment.date "YYYY-MM-DD"}}" data-form-type="date" required>
+            </div>
+            <div class="form-group">
+                    <label for="clientSelect">Client</label>
+                    <select class="form-control" name=clientid id="clientSelect">
+                      <option selected>None</option>
+                      {{#each clients}}
+                      <option value="{{_id}}"{{#if (if_eq _id ../appointment.client)}} selected {{/if}}>{{name}}</option>
+                      {{/each}}
+                    </select>
+            </div>
+            {{#if admin}}
+            <div class="form-group">
+                    <label for="employeeSelect">Employee</label>
+                    <select class="form-control" name=employeeid id="employeeSelect">
+                      <option>None</option>
+                      {{#each employees}}
+                      <option value="{{_id}}" {{#if (if_eq _id ../appointment.employee)}} selected {{/if}}>{{name}} @{{username}}</option>
+                      {{/each}}
+                    </select>
+            </div>
+            {{/if}}
+            <div class="form-check">
+              <label for="task" class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="task" name="task" data-form-type="task" value="true" {{#if appointment.task}} checked {{/if}}>Task
+              </label>
+            </div>
+            <div class="form-check">
+              <label for="completed" class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="completed" name="completed" data-form-type="completed" value="true" {{#if appointment.completed}} checked {{/if}}>Completed
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-success me-2" data-form-type="action" data-dashlane-label="true">Submit</button>
+            <button class="btn btn-light" data-form-type="other" data-dashlane-label="true">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> admin/_footer}}
+</div>

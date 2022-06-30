@@ -33,11 +33,17 @@ app.use(passport.session());
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: '.hbs',
-  // custom helpers
+  // custom helpers MOVE LATER TO A SEPARATE DOCUMENT
   helpers:{
     formatDate:function(date,format){
       var mmnt = moment(date)
       return mmnt.format(format)
+    },
+    if_eq:function(value1,value2){
+      if(value1.equals(value2)){
+        return true;
+      }
+      return false;
     }
   }
 });

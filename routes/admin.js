@@ -148,6 +148,53 @@ router.get('/appointments/create',isAuthenticated, async(req, res) => {
   }
   res.render('admin/appointments_create',{name: req.user.name,admin: req.user.admin,clients:clients,employees:employees})
 })
+router.get('/appointments/:id',isAuthenticated, async(req, res) => {
+  let appointment;
+  try{
+    appointment = await Appointment.findById(req.params.id).lean()
+  }catch(err){
+    res.redirect('/admin/appointments')
+  }
+  let clients;
+  let employees;
+  if (req.user.admin){
+    clients = await Client.find({deleted: false}).lean()
+    employees = await Employee.find({deleted: false}).lean()
+  }else{
+    clients = await Client.find({deleted: false,employee: req.user.id}).lean()
+  }
+  res.render('admin/appointment',{appointment, name: req.user.name, admin: req.user.admin,clients:clients,employees:employees})
+})
+
+router.post('/appointments/:id',isAuthenticated,async(req, res) => {
+  try{
+    appointment = await Appointment.findByIdAndUpdate(req.params.id,req.body)
+    let employee
+    if (req.body.employeeid == undefined || req.body.employeeid == 'None') {
+      employee = await Employee.findById(req.user.id)
+    }else{
+      employee = await Employee.findById(req.body.employeeid)
+    }
+    appointment.employee = employee
+    appointment.employeeName = employee.name
+    if (req.body.clientid != 'None') {
+      client = await Client.findById(req.body.clientid)
+      appointment.client = client
+      appointment.clientName = client.name
+    }
+    if(req.body.completed == undefined){
+      appointment.completed = false;
+    }
+    if(req.body.task == undefined){
+      appointment.task = false;
+    }
+    appointment.save()
+  }catch(err){
+    console.log(err)
+    res.redirect('/admin/appointments')
+  }
+  res.redirect('/admin/appointments')
+})
 
 router.get('/documents',isAuthenticated, (req, res) => {
   res.render('admin/documents',{name: req.user.name,admin: req.user.admin})

@@ -16,12 +16,12 @@
                       <thead>
                         <tr>
                           <th>Date</th>
-                          <th>Client</th>
                           <th>Title</th>
-                          <th>Status</th>
+                          <th>Client</th>
                           {{#if admin}}
                           <th>Employee</th>
                           {{/if}}
+                          <th>Status</th>
                           <th>View</th>
                         </tr>
                       </thead>
@@ -30,16 +30,16 @@
                         <tr>
                           <!-- FIX TIMEZONES ISSUE -->
                           <td>{{formatDate date "MM-DD-YYYY"}}</td>
-                          <td>{{clientName}}</td>
                           <td>{{title}}</td>
+                          <td>{{clientName}}</td>
+                          {{#if ../admin}}
+                          <td><a href="/admin/employees/{{employee}}">{{employeeName}}</a></td>
+                          {{/if}}
                           <td>
                             {{#if completed}}<label class="badge badge-success">Completed</label>
                             {{else}}<label class="badge badge-warning">In progress</label>
                             {{/if}}
                           </td>
-                          {{#if ../admin}}
-                          <td>{{employeeName}}</td>
-                          {{/if}}
                           <td><button type="button" class="btn btn-success" onclick ="location.href = 'appointments/{{_id}}'">Edit</button></td>
                         </tr>
                         {{/each}}
