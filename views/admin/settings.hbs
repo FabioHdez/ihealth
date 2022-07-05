@@ -1,0 +1,38 @@
+{{> admin/_navbar}}
+{{> admin/_settings-panel}}
+{{> admin/_sidebar}}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Edit your account</h4>
+          <p class="card-description">
+            Edit your information.
+          </p>
+          <form class="forms-sample" action="/admin/settings/{{employee._id}}" method="post">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" class="form-control" name="name"id="name" placeholder="Full Name" data-form-type="name" value="{{employee.name}}">
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" name="username"id="username" placeholder="Username" data-form-type="username"value="{{employee.username}}">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="number" class="form-control" name="phone" id="phone" placeholder="Phone Number" data-form-type="phone" value="{{employee.phone}}">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-form-type="email" value="{{employee.email}}">
+            </div>
+            <button type="submit" class="btn btn-primary me-2" data-form-type="action" data-dashlane-label="true">Submit</button>
+            <button class="btn btn-light" data-form-type="other" data-dashlane-label="true">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> admin/_footer}}
+</div>

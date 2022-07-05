@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
-
 const {isAuthenticated,isAdmin} = require('../helpers/auth');
-
 const Client = require('../models/Client')
 const Employee = require('../models/Employee')
 const Appointment = require('../models/Appointment')
@@ -198,6 +196,19 @@ router.post('/appointments/:id',isAuthenticated,async(req, res) => {
 
 router.get('/documents',isAuthenticated, (req, res) => {
   res.render('admin/documents',{name: req.user.name,admin: req.user.admin})
+})
+router.get('/settings',isAuthenticated, async(req, res) => {
+  employee = await Employee.findById(req.user.id).lean();
+  res.render('admin/settings',{employee,name: req.user.name,admin: req.user.admin})
+})
+router.post('/settings/:id',isAuthenticated, async(req, res) => {
+  try{
+    await Employee.findByIdAndUpdate(req.params.id,req.body)
+  }catch(err){
+    console.log(err)
+    res.redirect('/admin/settings')
+  }
+  res.redirect('/admin/')
 })
 
 module.exports = router
