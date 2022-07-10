@@ -21,7 +21,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', isAuthenticated, (req, res) => {
 	req.session.destroy();
-  res.redirect('/admin/login');
+  res.redirect('/');
 });
 
 router.get('/', isAuthenticated, async(req, res) => {

@@ -10,8 +10,8 @@ const AppointmentSchema = new Schema({
   date: {type: Date, default: Date.now,required: true},
   client: {type: Schema.Types.ObjectId, ref: 'Client', required:false},
   clientName: {type:String, default:"None",required:false},
-  employee: {type: Schema.Types.ObjectId, ref: 'Employee', required:true},
-  employeeName: {type:String, default:"NOT FOUND",required:true},
+  employee: {type: Schema.Types.ObjectId, ref: 'Employee', required:false},
+  employeeName: {type:String, default:"None",required:true},
   task: {type: Boolean,default: false,required: true},
   completed: {type: Boolean,default: false,required: true},
   deleted: {type: Boolean,default: false,required: true}
