@@ -31,5 +31,5 @@ SESSION_SECRET = mysecretsession
 ```
 On the DB_CONNECTION remove "<>" and replace with actual values
 
-##Hosting
-This project is currently hosted at https://fabioihealth.herokuapp.com/
+## Hosting
+This project is currently hosted at https://fabioihealth.herokuapp.com/ it may take a 5 to 10 seconds to load because the application is hosted on a free tier of heroku's "dinos" which take a while to turn on.
