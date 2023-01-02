@@ -42,7 +42,7 @@ This project is currently hosted at https://fabioihealth.herokuapp.com/ it may t
 ### Login
 ![alt text](https://raw.githubusercontent.com/FabioHdez/ihealth/main/Screenshots/Login.png?raw=true)
 ### Employee Section
-![alt text](https://raw.githubusercontent.com/FabioHdez/ihealth/main/Screenshots/Employee.png?raw=true)
+![alt text](https://raw.githubusercontent.com/FabioHdez/ihealth/main/Screenshots/Employees.png?raw=true)
 ### New Employee
 ![alt text](https://raw.githubusercontent.com/FabioHdez/ihealth/main/Screenshots/New%20Employee.png?raw=true)
 ### Appointment Section
